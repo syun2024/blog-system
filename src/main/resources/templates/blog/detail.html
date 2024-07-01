@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog Detail</title>
+</head>
+<body>
+    <h1 th:text="${blog.title}">Blog Title</h1>
+    <p th:text="${blog.content}">Blog Content</p>
+    <p>Author: <span th:text="${blog.author}">Author</span></p>
+    <p>Created Date: <span th:text="${blog.createdAt}">Created Date</span></p>
+    <a th:href="@{/blogs/{id}/edit(id=${blog.id})}">Edit</a>
+    <form th:action="@{/blogs/{id}/delete(id=${blog.id})}" method="post">
+        <button type="submit">Delete</button>
+    </form>
+    <h2>Comments</h2>
+    <ul>
+        <li th:each="comment : ${blog.comments}">
+            <p th:text="${comment.content}">Comment Content</p>
+            <p>Author: <span th:text="${comment.author}">Author</span></p>
+            <p>Created Date: <span th:text="${comment.createdAt}">Created Date</span></p>
+        </li>
+    </ul>
+    <a th:href="@{/blogs/{id}/comments(id=${blog.id})}">List Comment</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create/Edit Blog</title>
+</head>
+<body>
+    <h1 th:text="${blog.id == null} ? 'Create Blog' : 'Edit Blog'">Create/Edit Blog</h1>
+    <form th:action="@{${blog.id == null} ? '/blogs' : '/blogs/' + ${blog.id} + '/edit'}" th:object="${blog}" method="post">
+        <label>Title: <input type="text" th:field="*{title}"/></label><br/>
+        <label>Content: <textarea th:field="*{content}"></textarea></label><br/>
+        <label>Author: <input type="text" th:field="*{author}"/></label><br/>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
