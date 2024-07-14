@@ -12,11 +12,11 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public List<Comment> findByBlogId(Long blogId) {
+    public List<Comment> findByBlogId(Integer blogId) {
         return commentRepository.findByBlogId(blogId);
     }
 
-    public Comment findById(Long id) {
+    public Comment findById(Integer id) {
         return commentRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class CommentService {
         commentRepository.update(comment);
     }
 
-    public void delete(Long id) {
+    public void delete(Integer id) {
         commentRepository.delete(id);
     }
 }

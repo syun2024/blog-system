@@ -1,6 +1,8 @@
 package com.example.blog.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,10 +10,16 @@ import java.util.List;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @NotBlank(message = "Title is required")
+    @Size(max = 255, message = "Title must be less than 255 characters")
     private String title;
+
+    @NotBlank(message = "Content is required")
     private String content;
-    private String author;
+
+    // private Integer userId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,11 +33,11 @@ public class Blog {
     private LocalDateTime deletedAt;
 
     // Getters and Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,13 +57,13 @@ public class Blog {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
-    }
+    // public Integer getUserId() {
+    // return userId;
+    // }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    // public void setUserId(Integer userId) {
+    // this.userId = userId;
+    // }
 
     public User getUser() {
         return user;

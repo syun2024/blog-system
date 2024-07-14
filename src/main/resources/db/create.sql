@@ -18,7 +18,6 @@ CREATE TABLE blogs (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    author VARCHAR(100) NOT NULL,
     user_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -30,10 +29,11 @@ CREATE TABLE blogs (
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
-    author VARCHAR(100) NOT NULL,
     blog_id INTEGER,
+    user_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP,
     FOREIGN KEY (blog_id) REFERENCES blogs(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );

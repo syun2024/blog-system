@@ -1,26 +1,38 @@
 package com.example.blog.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @NotBlank(message = "Username is required")
+    @Size(max = 50, message = "Username must be less than 50 characters")
     private String username;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
 
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs;
 
     // Getters and Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

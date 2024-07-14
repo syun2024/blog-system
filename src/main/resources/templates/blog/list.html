@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Blog List</title>
+    <meta charset="UTF-8">
+    <title>ブログ一覧</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Blogs</h1>
-    <ul>
-        <li th:each="blog : ${blogs}">
-            <a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}">Blog Title</a>
-        </li>
-    </ul>
-    <a th:href="@{/blogs/new}">Create New Blog</a>
+    <div th:include="header"></div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mb-4">ブログ一覧</h1>
+                <div class="mb-4">
+                    <a th:href="@{/blogs/new}" class="btn btn-primary">新しいブログを作成</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div th:each="blog : ${blogs}" class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}" class="text-decoration-none">ブログタイトル</a>
+                                </h5>
+                                <p class="card-text">
+                                    <small class="text-muted">作成日: <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}">作成日</span></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

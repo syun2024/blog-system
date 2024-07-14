@@ -80,7 +80,22 @@
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
         </dependency>
+
+        <!-- Hibernate Validator (Bean Validation) -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.2.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
     </dependencies>
+
+    
 
     <build>
         <plugins>

@@ -1,10 +1,20 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/blog
+    url: jdbc:postgresql://localhost:5432/blog-system
     username: postgres
-    password: asdf
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+logging:
+  level:
+    org:
+      thymeleaf:
+        templateresolver: ERROR
+        TemplateEngine: ERROR
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  type-aliases-package: com.example.blog.entity

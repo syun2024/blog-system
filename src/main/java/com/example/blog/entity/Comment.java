@@ -1,15 +1,18 @@
 package com.example.blog.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @NotBlank(message = "Content is required")
     private String content;
-    private String author;
 
     @ManyToOne
     @JoinColumn(name = "blog_id")
@@ -20,11 +23,11 @@ public class Comment {
     private LocalDateTime deletedAt;
 
     // Getters and Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,14 +39,6 @@ public class Comment {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public Blog getBlog() {
         return blog;
     }
@@ -52,11 +47,11 @@ public class Comment {
         this.blog = blog;
     }
 
-    public Long getBlogId() {
+    public Integer getBlogId() {
         return blog != null ? blog.getId() : null;
     }
 
-    public void setBlogId(Long blogId) {
+    public void setBlogId(Integer blogId) {
         if (this.blog == null) {
             this.blog = new Blog();
         }
