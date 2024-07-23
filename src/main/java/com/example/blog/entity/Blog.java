@@ -2,6 +2,7 @@ package com.example.blog.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,18 +13,21 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Title is required")
-    @Size(max = 255, message = "Title must be less than 255 characters")
+    @NotBlank(message = "タイトルは必須です")
+    @Size(max = 255, message = "タイトルは255文字以内で入力してください")
     private String title;
 
-    @NotBlank(message = "Content is required")
+    @NotBlank(message = "コンテンツは必須です")
     private String content;
-
-    // private Integer userId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @NotNull(message = "カテゴリーは必須です")
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments;
@@ -32,7 +36,6 @@ public class Blog {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -57,20 +60,20 @@ public class Blog {
         this.content = content;
     }
 
-    // public Integer getUserId() {
-    // return userId;
-    // }
-
-    // public void setUserId(Integer userId) {
-    // this.userId = userId;
-    // }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public List<Comment> getComments() {

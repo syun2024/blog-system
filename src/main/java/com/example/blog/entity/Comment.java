@@ -2,7 +2,6 @@ package com.example.blog.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,18 +10,21 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Content is required")
+    @NotBlank(message = "コンテンツは必須です")
     private String content;
 
     @ManyToOne
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -47,6 +49,14 @@ public class Comment {
         this.blog = blog;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Integer getBlogId() {
         return blog != null ? blog.getId() : null;
     }
@@ -56,6 +66,17 @@ public class Comment {
             this.blog = new Blog();
         }
         this.blog.setId(blogId);
+    }
+
+    public Integer getUserId() {
+        return user != null ? user.getId() : null;
+    }
+
+    public void setUserId(Integer userId) {
+        if (this.user == null) {
+            this.user = new User();
+        }
+        this.user.setId(userId);
     }
 
     public LocalDateTime getCreatedAt() {

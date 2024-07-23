@@ -29,7 +29,7 @@ public class UserController {
             return "redirect:/blogs";
         }
         model.addAttribute("error", "Invalid username or password");
-        return "/";
+        return "user/login";
     }
 
     @GetMapping("/register")

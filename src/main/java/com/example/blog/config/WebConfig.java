@@ -14,7 +14,6 @@ public class WebConfig {
         registrationBean.setFilter(new SessionCheckFilter());
         registrationBean.addUrlPatterns("/*"); // フィルタを適用するパスパターンを指定
 
-        // ログイン画面にはフィルタを適用しない
         registrationBean.setName("sessionCheckFilter");
         registrationBean.setOrder(1); // フィルタの順序を設定
 

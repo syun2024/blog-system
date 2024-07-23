@@ -27,7 +27,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs;
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }

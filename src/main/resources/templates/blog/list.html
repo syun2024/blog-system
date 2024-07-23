@@ -23,7 +23,9 @@
                                     <a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}" class="text-decoration-none">ブログタイトル</a>
                                 </h5>
                                 <p class="card-text">
-                                    <small class="text-muted">作成日: <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}">作成日</span></small>
+                                    <small class="text-muted">作成者: <span th:text="${blog.user != null ? blog.user.username : '不明'}">作成者</span></small><br>
+                                    <small class="text-muted">作成日: <span th:text="${#temporals.format(blog.createdAt, 'yyyy/MM/dd')}">作成日</span></small><br>
+                                    <span class="badge badge-secondary" th:text="${blog.category.nameJa}">カテゴリー</span>
                                 </p>
                             </div>
                         </div>
@@ -32,9 +34,10 @@
             </div>
         </div>
     </div>
+    <div th:include="footer :: footer"></div>
     <!-- Bootstrap JS and dependencies CDN -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

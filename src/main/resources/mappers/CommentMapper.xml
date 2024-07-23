@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.blog.repository.CommentRepository">
+    <resultMap id="CommentResultMap" type="com.example.blog.entity.Comment">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <association property="user" column="user_id" javaType="com.example.blog.entity.User">
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+
+    <select id="findByBlogId" resultMap="CommentResultMap" parameterType="int">
+        SELECT c.*, u.username
+        FROM comments c
+        JOIN users u ON c.user_id = u.id
+        WHERE c.blog_id = #{blogId} AND c.deleted_at IS NULL
+    </select>
+
+    <select id="findById" resultMap="CommentResultMap" parameterType="int">
+        SELECT * FROM comments WHERE id = #{id}
+    </select>
+
+    <insert id="save" parameterType="com.example.blog.entity.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comments (content, blog_id, user_id)
+        VALUES (#{content}, #{blog.id}, #{user.id})
+    </insert>
+
+    <update id="update" parameterType="com.example.blog.entity.Comment">
+        UPDATE comments SET content = #{content}, updated_at = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="delete" parameterType="int">
+        UPDATE comments SET deleted_at = NOW() WHERE id = #{id}
+    </update>
+
+    <update id="deleteByBlogId" parameterType="int">
+        UPDATE comments SET deleted_at = NOW() WHERE blog_id = #{blogId}
+    </update>
+</mapper>

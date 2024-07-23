@@ -17,16 +17,17 @@
                         <label for="content">内容:</label>
                         <input type="text" id="content" th:field="*{content}" class="form-control" />
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">投稿</button>
                     </div>
                 </form>
-                <div class="text-center mt-4">
-                    <a th:href="@{/blogs/{blogId}/comments(blogId=${blogId})}" class="btn btn-secondary">コメント一覧に戻る</a>
+                <div class="mt-4">
+                    <a th:href="@{/blogs/{blogId}(blogId=${blogId})}" class="btn btn-secondary">ブログ詳細</a>
                 </div>
             </div>
         </div>
     </div>
+    <div th:include="footer :: footer"></div>
     <!-- Bootstrap JS and dependencies CDN -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

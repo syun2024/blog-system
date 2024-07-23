@@ -3,9 +3,13 @@ package com.example.blog.service;
 import com.example.blog.entity.Blog;
 import com.example.blog.repository.BlogRepository;
 import com.example.blog.repository.CommentRepository;
+import com.example.blog.exception.DuplicateTitleException;
+import com.example.blog.exception.DatabaseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,16 +29,44 @@ public class BlogService {
         return blogRepository.findById(id);
     }
 
-    public void save(Blog blog) {
-        blogRepository.save(blog);
+    @Transactional
+    public void createBlog(Blog blog) {
+        if (isTitleDuplicate(blog.getTitle())) {
+            throw new DuplicateTitleException("Title already exists");
+        }
+
+        try {
+            blogRepository.save(blog);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("An error occurred while accessing the database", e);
+        }
     }
 
-    public void update(Blog blog) {
-        blogRepository.update(blog);
+    @Transactional
+    public void updateBlog(Integer id, Blog blog) {
+        if (isTitleDuplicateForUpdate(blog.getTitle(), id)) {
+            throw new DuplicateTitleException("Title already exists");
+        }
+
+        try {
+            blog.setId(id);
+            blogRepository.update(blog);
+        } catch (DataAccessException e) {
+            throw new DatabaseException("An error occurred while accessing the database", e);
+        }
     }
 
+    @Transactional
     public void delete(Integer id) {
         commentRepository.deleteByBlogId(id);
         blogRepository.delete(id);
+    }
+
+    public boolean isTitleDuplicate(String title) {
+        return blogRepository.countByTitle(title) > 0;
+    }
+
+    public boolean isTitleDuplicateForUpdate(String title, Integer id) {
+        return blogRepository.countByTitleAndNotId(title, id) > 0;
     }
 }

@@ -28,6 +28,9 @@
                                 <button type="submit" class="btn btn-primary">ログイン</button>
                             </div>
                         </form>
+                        <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+                            <p th:text="${error}"></p>
+                        </div>
                     </div>
                     <div class="card-footer text-center">
                         <a th:href="@{/users/register}" class="btn btn-link">ユーザー登録</a>
