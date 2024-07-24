@@ -10,7 +10,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "コンテンツは必須です")
+    @NotBlank(message = "{comment.content.notblank}")
     private String content;
 
     @ManyToOne

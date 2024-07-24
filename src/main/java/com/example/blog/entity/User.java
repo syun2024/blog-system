@@ -12,16 +12,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Username is required")
-    @Size(max = 50, message = "Username must be less than 50 characters")
+    @NotBlank(message = "{error.username.notblank}")
+    @Size(max = 50, message = "{error.username.size}")
     private String username;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "{error.password.size}")
     private String password;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @NotBlank(message = "{error.email.notblank}")
+    @Email(message = "{error.email.email}")
     private String email;
 
     @OneToMany(mappedBy = "user")

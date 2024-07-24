@@ -9,12 +9,16 @@ spring:
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
+  messages:
+    basename: messages
+    encoding: UTF-8
 logging:
   level:
     org:
       thymeleaf:
         templateresolver: ERROR
         TemplateEngine: ERROR
+
 mybatis:
   config-location: classpath:mybatis-config.xml
   type-aliases-package: com.example.blog.entity

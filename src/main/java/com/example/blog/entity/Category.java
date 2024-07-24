@@ -10,10 +10,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "{category.name.notblank}")
     private String name;
 
-    @NotBlank(message = "Japanese Name is required")
+    @NotBlank(message = "{category.nameJa.notblank}")
     private String nameJa;
 
     private LocalDateTime createdAt;

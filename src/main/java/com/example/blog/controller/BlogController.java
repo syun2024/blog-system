@@ -8,7 +8,7 @@ import com.example.blog.service.BlogService;
 import com.example.blog.service.CategoryService;
 import com.example.blog.service.CommentService;
 import com.example.blog.exception.DatabaseException;
-import com.example.blog.exception.DuplicateTitleException;
+import com.example.blog.exception.DuplicateDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,19 +79,19 @@ public class BlogController {
 
         try {
             blogService.createBlog(blog);
-        } catch (DuplicateTitleException e) {
+        } catch (DuplicateDataException e) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.blog",
                     bindingResult);
             redirectAttributes.addFlashAttribute("blog", blog);
-            redirectAttributes.addFlashAttribute("titleError", "タイトルが重複しています");
+            redirectAttributes.addFlashAttribute("titleError", e.getMessage());
             return "redirect:/blogs/new";
         } catch (DatabaseException e) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.blog",
                     bindingResult);
             redirectAttributes.addFlashAttribute("blog", blog);
-            redirectAttributes.addFlashAttribute("databaseError", "データベースアクセス中にエラーが発生しました");
+            redirectAttributes.addFlashAttribute("databaseError", e.getMessage());
             return "redirect:/blogs/new";
         }
 
@@ -121,12 +121,12 @@ public class BlogController {
 
         try {
             blogService.updateBlog(id, blog);
-        } catch (DuplicateTitleException e) {
-            redirectAttributes.addFlashAttribute("titleError", "タイトルが重複しています");
+        } catch (DuplicateDataException e) {
+            redirectAttributes.addFlashAttribute("titleError", e.getMessage());
             redirectAttributes.addFlashAttribute("blog", blog);
             return "redirect:/blogs/" + id + "/edit";
         } catch (DatabaseException e) {
-            redirectAttributes.addFlashAttribute("databaseError", "データベースアクセス中にエラーが発生しました");
+            redirectAttributes.addFlashAttribute("databaseError", e.getMessage());
             redirectAttributes.addFlashAttribute("blog", blog);
             return "redirect:/blogs/" + id + "/edit";
         }
