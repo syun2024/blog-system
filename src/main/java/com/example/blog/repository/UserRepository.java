@@ -10,8 +10,4 @@ public interface UserRepository {
     int countByUsername(String username);
 
     void save(User user);
-
-    void update(User user);
-
-    void delete(Integer id);
 }
