@@ -65,7 +65,7 @@ public class CommentController {
     public String update(@PathVariable Integer blogId, @PathVariable Integer id, @ModelAttribute Comment comment) {
         comment.setId(id);
         commentService.update(comment);
-        return "redirect:/blogs/" + blogId + "/comments";
+        return "redirect:/blogs/" + blogId;
     }
 
     @PostMapping("/{id}/delete")

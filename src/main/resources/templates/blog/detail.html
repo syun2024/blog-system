@@ -46,14 +46,14 @@
                     </li>
                 </ul>
 
-                <h3 class="mt-5">コメント</h3>
+                <h3 class="mt-5">コメントを投稿</h3>
                 <form th:action="@{/blogs/{id}/comments/create(id=${blog.id})}" th:object="${comment}" method="post">
                     <div class="form-group">
                         <textarea id="content" th:field="*{content}" class="form-control"></textarea>
                         <div th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></div>
                     </div>
                     <div class="form-group text-left">
-                        <button type="submit" class="btn btn-primary">コメントを投稿</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
                     </div>
                 </form>
 

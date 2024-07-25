@@ -8,7 +8,7 @@ import com.example.blog.service.BlogService;
 import com.example.blog.service.CategoryService;
 import com.example.blog.service.CommentService;
 import com.example.blog.exception.DatabaseException;
-import com.example.blog.exception.DuplicateTitleException;
+import com.example.blog.exception.DuplicateDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,7 +79,7 @@ public class BlogController {
 
         try {
             blogService.createBlog(blog);
-        } catch (DuplicateTitleException e) {
+        } catch (DuplicateDataException e) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.blog",
                     bindingResult);
@@ -121,7 +121,7 @@ public class BlogController {
 
         try {
             blogService.updateBlog(id, blog);
-        } catch (DuplicateTitleException e) {
+        } catch (DuplicateDataException e) {
             redirectAttributes.addFlashAttribute("titleError", "タイトルが重複しています");
             redirectAttributes.addFlashAttribute("blog", blog);
             return "redirect:/blogs/" + id + "/edit";
@@ -131,7 +131,7 @@ public class BlogController {
             return "redirect:/blogs/" + id + "/edit";
         }
 
-        return "redirect:/blogs";
+        return "redirect:/blogs/" + id;
     }
 
     @PostMapping("/{id}/delete")

@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <h1 class="mb-4">コメントを投稿</h1>
-                <form th:action="@{/blogs/{blogId}/comments/create(blogId=${blogId})}" th:object="${comment}" method="post">
+                <form th:action="@{/blogs/{blogId}/comments/{id}/edit(blogId=${blogId}, id=${comment.id})}" th:object="${comment}" method="post">
                     <div class="form-group">
                         <label for="content">内容:</label>
                         <input type="text" id="content" th:field="*{content}" class="form-control" />

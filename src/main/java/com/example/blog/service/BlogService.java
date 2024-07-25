@@ -3,7 +3,7 @@ package com.example.blog.service;
 import com.example.blog.entity.Blog;
 import com.example.blog.repository.BlogRepository;
 import com.example.blog.repository.CommentRepository;
-import com.example.blog.exception.DuplicateTitleException;
+import com.example.blog.exception.DuplicateDataException;
 import com.example.blog.exception.DatabaseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class BlogService {
     @Transactional
     public void createBlog(Blog blog) {
         if (isTitleDuplicate(blog.getTitle())) {
-            throw new DuplicateTitleException("Title already exists");
+            throw new DuplicateDataException("Title already exists");
         }
 
         try {
@@ -45,7 +45,7 @@ public class BlogService {
     @Transactional
     public void updateBlog(Integer id, Blog blog) {
         if (isTitleDuplicateForUpdate(blog.getTitle(), id)) {
-            throw new DuplicateTitleException("Title already exists");
+            throw new DuplicateDataException("Title already exists");
         }
 
         try {

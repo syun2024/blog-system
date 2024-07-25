@@ -1,11 +1,8 @@
 package com.example.blog.repository;
 
 import com.example.blog.entity.Comment;
-import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 
-@Mapper
 public interface CommentRepository {
     List<Comment> findByBlogId(Integer blogId);
 
@@ -17,5 +14,5 @@ public interface CommentRepository {
 
     void delete(Integer id);
 
-    void deleteByBlogId(Integer id);
+    void deleteByBlogId(Integer blogId);
 }
