@@ -2,18 +2,26 @@ package com.example.blog.controller;
 
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
+import com.example.blog.exception.DuplicateDataException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping("/login")
     public String loginForm() {
@@ -28,7 +36,7 @@ public class UserController {
             model.addAttribute("user", existingUser);
             return "redirect:/blogs";
         }
-        model.addAttribute("error", "Invalid username or password");
+        model.addAttribute("error", messageSource.getMessage("error.login", null, null));
         return "user/login";
     }
 
@@ -39,9 +47,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
-        userService.save(user);
-        return "redirect:/users/login";
+    public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "user/register";
+        }
+
+        try {
+            userService.save(user);
+        } catch (DuplicateDataException e) {
+            model.addAttribute("usernameError", e.getMessage());
+            return "user/register";
+        } catch (Exception e) {
+            model.addAttribute("systemError", messageSource.getMessage("error.system", null, null));
+            return "user/register";
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

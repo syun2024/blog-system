@@ -61,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Integer countByUsername(String username) {
+    public int countByUsername(String username) {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND deleted_at IS NULL";
 

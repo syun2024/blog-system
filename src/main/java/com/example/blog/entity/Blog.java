@@ -13,18 +13,18 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "タイトルは必須です")
-    @Size(max = 255, message = "タイトルは255文字以内で入力してください")
+    @NotBlank(message = "{blog.title.notblank}")
+    @Size(max = 255, message = "{blog.title.size}")
     private String title;
 
-    @NotBlank(message = "コンテンツは必須です")
+    @NotBlank(message = "{blog.content.notblank}")
     private String content;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull(message = "カテゴリーは必須です")
+    @NotNull(message = "{blog.category.notnull}")
     @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;

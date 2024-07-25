@@ -84,14 +84,14 @@ public class BlogController {
                     "org.springframework.validation.BindingResult.blog",
                     bindingResult);
             redirectAttributes.addFlashAttribute("blog", blog);
-            redirectAttributes.addFlashAttribute("titleError", "タイトルが重複しています");
+            redirectAttributes.addFlashAttribute("titleError", e.getMessage());
             return "redirect:/blogs/new";
         } catch (DatabaseException e) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.blog",
                     bindingResult);
             redirectAttributes.addFlashAttribute("blog", blog);
-            redirectAttributes.addFlashAttribute("databaseError", "データベースアクセス中にエラーが発生しました");
+            redirectAttributes.addFlashAttribute("databaseError", e.getMessage());
             return "redirect:/blogs/new";
         }
 
@@ -122,11 +122,11 @@ public class BlogController {
         try {
             blogService.updateBlog(id, blog);
         } catch (DuplicateDataException e) {
-            redirectAttributes.addFlashAttribute("titleError", "タイトルが重複しています");
+            redirectAttributes.addFlashAttribute("titleError", e.getMessage());
             redirectAttributes.addFlashAttribute("blog", blog);
             return "redirect:/blogs/" + id + "/edit";
         } catch (DatabaseException e) {
-            redirectAttributes.addFlashAttribute("databaseError", "データベースアクセス中にエラーが発生しました");
+            redirectAttributes.addFlashAttribute("databaseError", e.getMessage());
             redirectAttributes.addFlashAttribute("blog", blog);
             return "redirect:/blogs/" + id + "/edit";
         }
