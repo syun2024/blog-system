@@ -3,7 +3,6 @@ package com.example.blog.filter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -32,7 +31,6 @@ public class SessionCheckFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
 
-        String a = environment;
         // if ("local".equals(environment)) {
         if (session == null || session.getAttribute("loginUser") == null) {
             session = httpRequest.getSession(true);

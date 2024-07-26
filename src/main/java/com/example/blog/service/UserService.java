@@ -5,7 +5,6 @@ import com.example.blog.repository.UserRepository;
 import com.example.blog.exception.DuplicateDataException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.blog.exception.DuplicateDataException;
 import org.springframework.stereotype.Service;
 import org.springframework.context.MessageSource;
 
