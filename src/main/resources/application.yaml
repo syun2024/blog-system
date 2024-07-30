@@ -3,25 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/blog-system
     username: postgres
     password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
   messages:
     basename: messages
     encoding: UTF-8
-logging:
-  level:
-    org:
-      thymeleaf:
-        templateresolver: ERROR
-        TemplateEngine: ERROR
-
-mybatis:
-  config-location: classpath:mybatis-config.xml
-  type-aliases-package: com.example.blog.entity
-  mapper-locations: classpath:/mappers/*.xml
-
-env: local
+  jpa:
+    open-in-view: false
