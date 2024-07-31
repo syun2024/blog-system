@@ -11,5 +11,3 @@ spring:
     encoding: UTF-8
   jpa:
     open-in-view: false
-
-env: local
