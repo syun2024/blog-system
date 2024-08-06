@@ -2,6 +2,8 @@ package com.example.blog.repository;
 
 import com.example.blog.entity.Category;
 import com.example.blog.util.DatabaseUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -14,12 +16,15 @@ import java.util.List;
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 
+    @Autowired
+    private DatabaseUtil databaseUtil;
+
     @Override
     public List<Category> findAll() {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT * FROM categories WHERE deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
 

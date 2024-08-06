@@ -4,6 +4,8 @@ import com.example.blog.entity.Blog;
 import com.example.blog.entity.User;
 import com.example.blog.entity.Category;
 import com.example.blog.util.DatabaseUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -18,6 +20,9 @@ import java.util.List;
 @Repository
 public class BlogRepositoryImpl implements BlogRepository {
 
+    @Autowired
+    private DatabaseUtil databaseUtil;
+
     @Override
     public List<Blog> findAll() {
         List<Blog> blogs = new ArrayList<>();
@@ -28,7 +33,7 @@ public class BlogRepositoryImpl implements BlogRepository {
                 "WHERE b.deleted_at IS NULL " +
                 "ORDER BY id DESC";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
 
@@ -72,7 +77,7 @@ public class BlogRepositoryImpl implements BlogRepository {
                 "LEFT JOIN categories c ON b.category_id = c.id " +
                 "WHERE b.id = ? AND b.deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -112,7 +117,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     public void save(Blog blog) {
         String sql = "INSERT INTO blogs (title, content, user_id, category_id) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, blog.getTitle());
@@ -130,7 +135,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     public void update(Blog blog) {
         String sql = "UPDATE blogs SET title = ?, content = ?, category_id = ?, updated_at = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, blog.getTitle());
@@ -149,7 +154,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     public void delete(Integer id) {
         String sql = "UPDATE blogs SET deleted_at = NOW() WHERE id = ?";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -165,7 +170,7 @@ public class BlogRepositoryImpl implements BlogRepository {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM blogs WHERE title = ? AND deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, title);
@@ -187,7 +192,7 @@ public class BlogRepositoryImpl implements BlogRepository {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM blogs WHERE title = ? AND id != ? AND deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, title);

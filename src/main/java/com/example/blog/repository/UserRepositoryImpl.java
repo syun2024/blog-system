@@ -2,6 +2,8 @@ package com.example.blog.repository;
 
 import com.example.blog.entity.User;
 import com.example.blog.util.DatabaseUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -11,13 +13,15 @@ import java.sql.SQLException;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+    @Autowired
+    private DatabaseUtil databaseUtil;
 
     @Override
     public User findByUsername(String username) {
         User user = null;
         String sql = "SELECT * FROM users WHERE username = ? AND deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -48,7 +52,7 @@ public class UserRepositoryImpl implements UserRepository {
     public void save(User user) {
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
@@ -65,7 +69,7 @@ public class UserRepositoryImpl implements UserRepository {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND deleted_at IS NULL";
 
-        try (Connection conn = DatabaseUtil.getConnection();
+        try (Connection conn = databaseUtil.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
