@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://test_user:EcQk1IoBvTzGOcprzfYBCCCamm4JvV8E@dpg-cqkb88rqf0us73c6bk00-a/blog_system
+    url: jdbc:postgresql://dpg-cqkb88rqf0us73c6bk00-a.oregon-postgres.render.com/blog_system
     username: test_user
     password: EcQk1IoBvTzGOcprzfYBCCCamm4JvV8E
   thymeleaf:
