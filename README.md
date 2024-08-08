@@ -1,4 +1,4 @@
-※このファイル markdown 形式で記載しているためプレビューで開くと見やすいです。
+※このファイルは markdown 形式で記載しているためプレビューで開くと見やすいです。
 
 # 完成図
 
@@ -66,7 +66,7 @@ try-with-resources 構文を使用して、リソースを自動的にクロー�
 
 service ディレクトリに`BlogService.java`を作成してください。
 
-RepositoryImpl の`save`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
+RepositoryImpl の`list`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
 
 ### 挑戦
 
