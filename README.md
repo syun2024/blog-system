@@ -61,14 +61,14 @@ Entity ディレクトリに`Blog.java`を作成してください。
 データベースへの一覧取得機能の interface を作成してください。
 
 repository ディレクトリに`BlogRepository.java`を作成してください。
-`list`という名称で 引数はなしで全ての Blog オブジェクトを返却してください。
+`findAll`という名称で 引数はなしで全ての Blog オブジェクトを返却してください。
 
 ## Repository の実装
 
 データベースへの一覧取得機能を実装してください
 
 repository ディレクトリに`BlogRepositoryImpl.java`を作成してください。
-`BlogRepository`を実装し、`list`メソッドをの中身を実装してください。  
+`BlogRepository`を実装し、`findAll`メソッドをの中身を実装してください。  
 以下は要件になります。
 
 - 削除日が null のデータを取得
@@ -84,7 +84,7 @@ try-with-resources 構文を使用して、リソースを自動的にクロー�
 
 service ディレクトリに`BlogService.java`を作成してください。
 
-RepositoryImpl の`list`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
+`list`というメソッドを作成し、RepositoryImpl の`findAll`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
 
 ### 挑戦
 
@@ -139,15 +139,17 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 サービスロジックを作成してください。
 
-Form から Entity に詰め直して保存するように実装してください
+`create`メソッドを作成し、Form から Entity に詰め直して保存するように実装してください
 
 ## Controller（Get リクエスト）
 
 ブログ作成画面のリクエストが来た際にフォームをレスポンスする実装をしてください。
 
-`/blogs/new`にリクエストが来た際に動作するようにしてください。
+以下要件です。
 
-`blog/form`を view を返却してください。
+- `create`メソッドを作成してください。
+- `/blogs/new`にリクエストが来た際に動作するようにしてください。
+- `blog/form`を view を返却してください。
 
 ## Controller（Post リクエスト）
 
