@@ -2,15 +2,23 @@
 
 # 完成図
 
-これからブログ管理システムを作成していきます。
-以下 URL が完成版なので触ってみてください。
+これからブログ管理システムを作成していきます。  
+以下 URL が完成版なので触ってみてください。  
 https://blog-management-system-o636.onrender.com/
+
+## 前提
+
+- 課題はこのプロジェクトを上書きする形で進めてください。
+  新規でプロジェクトを作成する必要はありません。
+
+- Freeks において`spring-boot-starter-data-jpa`のライブラリを使用して、データベースとやりとりをしていましたが
+  JDBC の理解を深めてもらうために、この課題では使用しませんので、ご認識お願い致します。
 
 # 環境構築
 
 ## データベース作成
 
-pgAdmin4 で `blog-system` というデータベースを作成してください。
+pgAdmin4 で `blog-system` というデータベースを作成してください。  
 ユーザー名とパスワードは`postgres`という名称で作成してください。
 
 ## テーブル作成
@@ -24,16 +32,16 @@ pgAdmin4 で `blog-system` というデータベースを作成してくださ�
 - 更新日時
 - 削除日時
 
-制約に関しては必要であれば設定してください。
+制約に関しては必要であれば設定してください。  
 また、作成日時と更新日時はデフォルトで現在時刻をセットするようにしてください。
 
 ### 挑戦
 
 削除日時がある理由を調べてみよう！
 
-## ディレクトリ作成
+## パッケージ作成
 
-`blog-management-system/src/main/java/com/example/blog`配下に下記のディレクトリ構成になるように作成してください。
+`blog-management-system/src/main/java/com/example/blog`配下に下記のパッケージ構成になるように作成してください。
 
 ```
 └── blog
@@ -51,23 +59,23 @@ pgAdmin4 で `blog-system` というデータベースを作成してくださ�
 
 ## Entity
 
-`Blog` テーブルのカラムに合うように Entity を実装してください。
+`Blog` テーブルのカラムに合うように Entity を実装してください。  
 併せて Getter,Setter を用意してください。
 
-Entity ディレクトリに`Blog.java`を作成してください。
+Entity パッケージに`Blog.java`を作成してください。
 
 ## Repository の interface
 
 データベースへの一覧取得機能の interface を作成してください。
 
-repository ディレクトリに`BlogRepository.java`を作成してください。
-`findAll`という名称で 引数はなしで全ての Blog オブジェクトを返却してください。
+repository パッケージに`BlogRepository.java`を作成してください。  
+`findAll`メソッドを作成し 引数はなしで全ての Blog オブジェクトを返却してください。
 
 ## Repository の実装
 
 データベースへの一覧取得機能を実装してください
 
-repository ディレクトリに`BlogRepositoryImpl.java`を作成してください。
+repository パッケージに`BlogRepositoryImpl.java`を作成してください。  
 `BlogRepository`を実装し、`findAll`メソッドをの中身を実装してください。  
 以下は要件になります。
 
@@ -80,11 +88,11 @@ try-with-resources 構文を使用して、リソースを自動的にクロー�
 
 ## Service
 
-サービスロジックを作成してください。
+ビジネスロジックを作成してください。
 
-service ディレクトリに`BlogService.java`を作成してください。
+service パッケージに`BlogService.java`を作成してください。
 
-`list`というメソッドを作成し、RepositoryImpl の`findAll`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
+`list`メソッドを作成し、Repository の`findAll`メソッドを呼び出して、全ての Blog オブジェクトを返却してください。
 
 ### 挑戦
 
@@ -94,7 +102,7 @@ service ディレクトリに`BlogService.java`を作成してください。
 
 Service の`list`メソッドを呼び出して、全ての Blog オブジェクトを View に渡してください。
 
-遷移先は`blog/list`になります。
+`src/main/resources/templates/blog/list.html`を表示してください
 
 ## 動作確認
 
@@ -120,14 +128,14 @@ VALUES
 
 ユーザーからの入力データを受け取る Form クラスを作成してください。
 
-form ディレクトリに`BlogForm.java`を作成してください。  
+form パッケージに`BlogForm.java`を作成してください。  
 どのフィールドを定義するか考えてみてください。
 
 ## Repository
 
 データベースへの保存機能の interface を作成してください。
 
-`save`という名称で Blog オブジェクトを受け取り、空を返却するメソッドを作成してください。
+`save`メソッドを作成し、 Blog オブジェクト を受け取り、空を返却するメソッドを作成してください。
 
 ## Repository 実装
 
@@ -137,7 +145,7 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 ## Service
 
-サービスロジックを作成してください。
+ビジネスロジックを作成してください。
 
 `create`メソッドを作成し、Form から Entity に詰め直して保存するように実装してください
 
@@ -149,7 +157,7 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 - `create`メソッドを作成してください。
 - `/blogs/new`にリクエストが来た際に動作するようにしてください。
-- `blog/form`を view を返却してください。
+- `src/main/resources/templates/blog/form.html`を表示してください
 
 ## Controller（Post リクエスト）
 
@@ -161,8 +169,8 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 ## 動作確認
 
-`localhost:8080/blogs`にアクセスして、新しいブログを作成ボタンを押下してください。
-タイトルと内容を入力して保存ボタンを押下してください。
+`localhost:8080/blogs`にアクセスして、新しいブログを作成ボタンを押下してください。  
+タイトルと内容を入力して保存ボタンを押下してください。  
 一覧画面に遷移して、登録した情報が表示されていたら正常に実装ができております。
 
 # ブログ記事詳細画面表示機能
@@ -173,7 +181,7 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 ブログ記事を ID で取得するためのメソッドを定義してください。
 
-`findById`という名称で、ID を引数に取り Blog オブジェクト を返却するメソッドを定義してください。
+`findById`メソッド名称で、ID を引数に取り Blog オブジェクト を返却するメソッドを定義してください。
 
 ## Repository の実装
 
@@ -183,16 +191,16 @@ form ディレクトリに`BlogForm.java`を作成してください。
 
 ## Service
 
-service ディレクトリに`BlogService.java`を作成してください。
+service パッケージに`BlogService.java`を作成してください。
 
-- `detail`というメソッドを作成し、Repository の`findById`メソッドを呼び出して、ID に対応する`Blog`オブジェクトを返却してください。
+`detail`メソッドを作成し、Repository の`findById`メソッドを呼び出して、ID に対応する`Blog`オブジェクトを返却してください。
 
 ## Controller
 
 ブログ詳細画面のリクエストに対応する Controller メソッドを実装してください。
 
-`BlogService`の`detail`メソッドを呼び出し、ブログ記事を取得してください。
-取得したブログ記事をモデルに追加し、`blog/detail`をビューとして返却してください。
+`BlogService`の`detail`メソッドを呼び出し、ブログ記事を取得してください。  
+取得したブログ記事をモデルに追加し、`src/main/resources/templates/blog/detail.html`を表示してください。
 
 ## 動作確認
 
@@ -204,7 +212,7 @@ service ディレクトリに`BlogService.java`を作成してください。
 
 ## Repository
 
-`update`という名称で Blog オブジェクトを受け取り、空を返却するメソッドを作成してください。
+`update`メソッドを作成して、 Blog オブジェクト を受け取り、空を返却するメソッドを作成してください。
 
 ## Repository 実装
 
@@ -214,7 +222,7 @@ service ディレクトリに`BlogService.java`を作成してください。
 
 ## Service
 
-サービスロジックを作成してください。
+ビジネスロジックを作成してください。
 
 Form から Entity に詰め直して更新するように実装してください。
 
@@ -224,7 +232,7 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 `/blogs/{id}/edit`にリクエストが来た際に動作するようにしてください。
 
-`blog/form`を view を返却してください。
+`src/main/resources/templates/blog/form.html`を表示してください。
 
 ## Controller（Post リクエスト）
 
@@ -236,9 +244,10 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 ## 動作確認
 
-`localhost:8080/blogs`にアクセスして、既存のデータのタイトルを押下して、詳細画面に遷移してください。編集ボタンを押下して、更新画面に遷移してください。
+`localhost:8080/blogs`にアクセスして、既存のデータのタイトルを押下して、詳細画面に遷移してください。  
+編集ボタンを押下して、更新画面に遷移してください。
 
-タイトルと内容を更新して保存ボタンを押下してください。
+タイトルと内容を更新して保存ボタンを押下してください。  
 一覧画面に遷移して、更新した情報が表示されていたら正常に実装ができております。
 
 `localhost:8080/blogs/{id}/edit`にアクセスして、フォームにデータが表示されることを確認し、内容を変更して更新してください。  
@@ -252,7 +261,7 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 データベースへの削除機能の interface を作成してください。
 
-`delete`という名称で Blog の ID を受け取り、空を返却するメソッドを作成してください。
+`delete`メソッドを作成して Blog の ID を受け取り、空を返却するメソッドを作成してください。
 
 ## Repository 実装
 
@@ -262,7 +271,7 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 ## Service
 
-サービスロジックを作成してください。
+ビジネスロジックを作成してください。
 
 削除リクエストを受け取り、Repository の delete メソッドを呼び出す実装をしてください。
 
@@ -272,7 +281,7 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 `/blogs/{id}/delete`にリクエストが来た際に動作するようにしてください。
 
-削除後は`blog/list`を view を返却してください。
+削除後は`src/main/resources/templates/blog/list.html`を表示してください。
 
 ## 動作確認
 
@@ -283,6 +292,6 @@ Form から Entity に詰め直して更新するように実装してくださ�
 
 # 提出
 
-課題お疲れ様でした！
-CRUD 処理の基本は理解できたでしょうか？
+課題お疲れ様でした！  
+CRUD 処理の基本は理解できたでしょうか？  
 新規レポジトリを作成し、public 状態にして URL を教育担当者に共有をお願いします！
