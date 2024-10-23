@@ -21,13 +21,6 @@
             <textarea id="content" th:field="*{content}" class="form-control"></textarea>
             <div th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></div>
         </div>
-        <div class="form-group">
-            <label for="category">カテゴリー:</label>
-            <div th:each="category : ${categories}">
-                <input type="radio" th:field="*{category.id}" th:value="${category.id}" th:text="${category.nameJa}"/> <br>
-            </div>
-            <div th:if="${#fields.hasErrors('category')}" class="text-danger" th:errors="*{category}"></div>
-        </div>
         <div class="form-group text-left">
             <button type="submit" class="btn btn-primary">保存</button>
         </div>
